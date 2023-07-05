@@ -1,0 +1,7 @@
+.bg-lights {
+    background-color: rgb(159, 228, 228);
+}
+
+.nav-link:hover {
+    border-bottom: 2px solid black;
+}
