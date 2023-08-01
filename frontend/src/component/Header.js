@@ -8,11 +8,12 @@ function Header() {
     localStorage.clear();
     navigate("/signup");
   };
+
   return (
-    <nav class="navbar navbar-expand-lg navbar-light bg-lights ">
-      <div class="container-fluid">
+    <nav className="navbar navbar-expand-lg navbar-light bg-lights ">
+      <div className="container-fluid">
         <button
-          class="navbar-toggler"
+          className="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNavAltMarkup"
@@ -20,38 +21,57 @@ function Header() {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav">
-            <Link class="nav-link active" aria-current="page" to="/">
-              Products
-            </Link>
-            <Link class="nav-link active" aria-current="page" to="/add">
-              Add Products
-            </Link>
-            <Link class="nav-link active" aria-current="page" to="/update">
-              Update Products
-            </Link>
-            <Link class="nav-link active" aria-current="page" to="/profile">
-              Profile
-            </Link>
-            {auth ? (
+        {auth ? (
+          <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div className="navbar-nav">
+              <Link className="nav-link active" aria-current="page" to="/">
+                Products
+              </Link>
+              <Link className="nav-link active" aria-current="page" to="/add">
+                Add Products
+              </Link>
               <Link
-                class="nav-link active"
+                className="nav-link active"
+                aria-current="page"
+                to="/update"
+              >
+                Update Products
+              </Link>
+              <Link
+                className="nav-link active"
+                aria-current="page"
+                to="/profile"
+              >
+                Profile
+              </Link>
+              <Link
+                className="nav-link active"
                 aria-current="page"
                 onClick={logout}
                 to="/signup"
               >
-                Logout
+                Logout ({JSON.parse(auth).name})
               </Link>
-            ) : (
-              <Link class="nav-link active" aria-current="page" to="/signup">
+            </div>
+          </div>
+        ) : (
+          <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div className="navbar-nav ms-auto">
+              <Link
+                className="nav-link active"
+                aria-current="page"
+                to="/signup"
+              >
                 signUp
               </Link>
-            )}
+              <Link className="nav-link active" aria-current="page" to="/login">
+                Login
+              </Link>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </nav>
   );

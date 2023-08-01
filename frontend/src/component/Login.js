@@ -1,29 +1,31 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-function SignUp() {
-  const navigate = useNavigate();
+
+function Login() {
+  const [inpval, setInpval] = useState({
+    email: "",
+    password: "",
+  });
   useEffect(() => {
     const auth = localStorage.getItem("user");
     if (auth) {
       navigate("/");
     }
   });
-  const [inpval, setInpval] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
-
+  const navigate = useNavigate();
   const handlechange = (e) => {
     setInpval({ ...inpval, [e.target.name]: e.target.value });
   };
-  const addDate = async () => {
+  const handaleLogin = async () => {
     try {
       await axios
-        .post("http://localhost:5000/register", inpval)
+        .post("http://localhost:5000/login", inpval)
         .then(function (result) {
-          if (result.status === 200) {
+          console.log("🚀 ~ file: Login.js:19 ~ result:", result);
+          if (result.data === "No User Found") {
+            alert("please enter vaild data");
+          } else {
             navigate("/");
             localStorage.setItem("user", JSON.stringify(result.data));
           }
@@ -32,21 +34,15 @@ function SignUp() {
       console.log("error", error);
     }
   };
+  console.log("🚀 ~ file: Login.js:9 ~ Login ~ inpval:", inpval);
   return (
     <div>
       <form className="container align-items-center d-flex flex-column">
-        <h4 className="m-5 text-center"> SignUP Form</h4>
+        <h4 className="m-5 text-center"> Login Form</h4>
         <div className="mb-3 w-50">
           <input
             className="form-control mb-3"
-            type="text"
-            name="name"
-            placeholder="Enter Name"
-            onChange={(e) => handlechange(e)}
-          />
-          <input
-            className="form-control mb-3"
-            type="text"
+            type="email"
             name="email"
             placeholder="Enter email"
             onChange={(e) => handlechange(e)}
@@ -64,13 +60,13 @@ function SignUp() {
           type="button"
           className="btn btn-lg btn-block "
           style={{ backgroundColor: "#87d3ec" }}
-          onClick={addDate}
+          onClick={handaleLogin}
         >
-          Sign Up
+          Log in
         </button>
       </form>
     </div>
   );
 }
 
-export default SignUp;
+export default Login;
