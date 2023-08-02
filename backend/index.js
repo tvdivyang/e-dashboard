@@ -47,8 +47,25 @@ app.get("/products", async (req, res) => {
 });
 
 app.delete("/products/:_id", async (req, res) => {
-  await Product.deleteOne({ _id: req.params._id });
-  res.send(data);
+  const result = await Product.deleteOne({ _id: req.params._id });
+  if (result) {
+    res.send(result);
+  } else {
+    res.send("Data not found");
+  }
+});
+
+app.get("/products/:_id", async (req, res) => {
+  const result = await Product.findOne({ _id: req.params._id });
+  res.send(result);
+});
+
+app.put("/products/:_id", async (req, res) => {
+  const result = await Product.updateOne(
+    { _id: req.params._id },
+    { $set: req.body }
+  );
+  res.send(result);
 });
 
 app.listen("5000");

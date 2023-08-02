@@ -1,7 +1,9 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 function UpdateProducts() {
+  const navigation = useNavigate();
   const [inpval, setInpval] = useState({
     userId: localStorage.getItem("user_id"),
     name: "",
@@ -9,6 +11,7 @@ function UpdateProducts() {
     category: "",
     company: "",
   });
+
   console.log(
     "🚀 ~ file: UpdateProducts.js:12 ~ UpdateProducts ~ inpval:",
     inpval
@@ -18,23 +21,38 @@ function UpdateProducts() {
   const handlechange = (e) => {
     setInpval({ ...inpval, [e.target.name]: e.target.value });
   };
-  const updateProduct = async () => {
-    if (!inpval.name || !inpval.price || !inpval.category || !inpval.company) {
-      setError(true);
-      return false;
-    }
+  useEffect(() => {
+    getproducts();
+  }, []);
+
+  const params = useParams();
+  const getproducts = async () => {
     try {
       await axios
-        .post("http://localhost:5000/addproduct", inpval)
+        .get(`http://localhost:5000/products/${params.id}`)
         .then(function (result) {
           if (result.status === 200) {
-            localStorage.setItem("user", JSON.stringify(result.data));
+            setInpval(result.data);
           }
         });
     } catch (error) {
       console.log("error", error);
     }
   };
+  const updateProduct = async () => {
+    try {
+      await axios
+        .put(`http://localhost:5000/products/${params.id}`, inpval)
+        .then(function (result) {
+          if (result.status === 200) {
+            navigation("/");
+          }
+        });
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
   return (
     <>
       <div>
