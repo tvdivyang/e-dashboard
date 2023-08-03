@@ -21,7 +21,7 @@ function SignUp() {
   const addDate = async () => {
     try {
       await axios
-        .post("http://localhost:5000/register", inpval)
+        .post("http://localhost:5000/user/register", inpval)
         .then(function (result) {
           if (result.status === 200) {
             navigate("/");

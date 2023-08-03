@@ -29,7 +29,7 @@ function UpdateProducts() {
   const getproducts = async () => {
     try {
       await axios
-        .get(`http://localhost:5000/products/${params.id}`)
+        .get(`http://localhost:5000/product/products/${params.id}`)
         .then(function (result) {
           if (result.status === 200) {
             setInpval(result.data);
@@ -42,7 +42,7 @@ function UpdateProducts() {
   const updateProduct = async () => {
     try {
       await axios
-        .put(`http://localhost:5000/products/${params.id}`, inpval)
+        .put(`http://localhost:5000/product/products/${params.id}`, inpval)
         .then(function (result) {
           if (result.status === 200) {
             navigation("/");

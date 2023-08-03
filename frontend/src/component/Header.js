@@ -32,13 +32,13 @@ function Header() {
               <Link className="nav-link active" aria-current="page" to="/add">
                 Add Products
               </Link>
-              <Link
+              {/* <Link
                 className="nav-link active"
                 aria-current="page"
                 to="/update"
               >
                 Update Products
-              </Link>
+              </Link> */}
               <Link
                 className="nav-link active"
                 aria-current="page"

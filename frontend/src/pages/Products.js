@@ -1,19 +1,18 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import AddProducts from "./AddProducts";
-import UpdateProducts from "./UpdateProducts";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Products() {
-  const [products, setProducts] = useState([]);
-  const history = useNavigate();
+  const [products, setProducts] = useState();
   const getProducts = async () => {
     try {
-      await axios.get("http://localhost:5000/products").then(function (result) {
-        if (result.status === 200) {
-          setProducts(result.data);
-        }
-      });
+      await axios
+        .get("http://localhost:5000/product/products")
+        .then(function (result) {
+          if (result.status === 200) {
+            setProducts(result.data);
+          }
+        });
     } catch (error) {
       console.log("error", error);
     }
@@ -21,7 +20,7 @@ function Products() {
   const deleteProducts = async (_id) => {
     try {
       await axios
-        .delete(`http://localhost:5000/products/${_id}`)
+        .delete(`http://localhost:5000/product/products/${_id}`)
         .then(function (result) {
           if (result.status === 200) {
             getProducts();

@@ -3,7 +3,7 @@ import Header from "../component/Header";
 import { Route, Routes } from "react-router-dom";
 import Products from "../pages/Products";
 import AddProducts from "../pages/AddProducts";
-import UpdateProducts from "../pages/UpdateProducts";
+// import UpdateProducts from "../pages/UpdateProducts";
 import SignUp from "../pages/SignUp";
 import Private from "../component/Private";
 import Footer from "../component/Footer";
@@ -18,7 +18,7 @@ function MainRouter() {
         <Route element={<Private />}>
           <Route path="/" element={<Products />}></Route>
           <Route path="/add" element={<AddProducts />}></Route>
-          <Route path="/update/:id" element={<UpdateProducts />}></Route>
+          {/* <Route path="/update/:id" element={<UpdateProducts />}></Route> */}
           <Route path="/Profile" element={<Profile />}></Route>
         </Route>
         <Route path="/signup" element={<SignUp />}></Route>

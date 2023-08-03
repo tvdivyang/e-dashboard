@@ -1,7 +1,14 @@
 const mongoose = require("mongoose");
 
-const dbconnect = async () => {
-  const db = await mongoose.connect("mongodb://0.0.0.0:27017/e-commerce");
+const dbconnect = () => {
+  mongoose
+    .connect("mongodb://0.0.0.0:27017/e-commerce", {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
+    .then((res) => {
+      console.log("database connected!");
+    });
 };
 
 module.exports = dbconnect;

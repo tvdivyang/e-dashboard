@@ -20,7 +20,7 @@ function Login() {
   const handaleLogin = async () => {
     try {
       await axios
-        .post("http://localhost:5000/login", inpval)
+        .post("http://localhost:5000/user/login", inpval)
         .then(function (result) {
           console.log("🚀 ~ file: Login.js:19 ~ result:", result);
           if (result.data === "No User Found") {

@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function AddProducts() {
   const [inpval, setInpval] = useState({
@@ -10,7 +11,7 @@ function AddProducts() {
     company: "",
   });
   const [error, setError] = useState();
-
+  const navigation = useNavigate();
   const handlechange = (e) => {
     setInpval({ ...inpval, [e.target.name]: e.target.value });
   };
@@ -21,9 +22,10 @@ function AddProducts() {
     }
     try {
       await axios
-        .post("http://localhost:5000/addproduct", inpval)
+        .post("http://localhost:5000/product/addproduct", inpval)
         .then(function (result) {
           if (result.status === 200) {
+            navigation("/");
             localStorage.setItem("user", JSON.stringify(result.data));
           }
         });
