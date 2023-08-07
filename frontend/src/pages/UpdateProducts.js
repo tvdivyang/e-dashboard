@@ -12,10 +12,6 @@ function UpdateProducts() {
     company: "",
   });
 
-  console.log(
-    "🚀 ~ file: UpdateProducts.js:12 ~ UpdateProducts ~ inpval:",
-    inpval
-  );
   const [error, setError] = useState();
 
   const handlechange = (e) => {

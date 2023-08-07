@@ -3,7 +3,7 @@ import "../App.css";
 
 function Header() {
   const navigate = useNavigate();
-  const auth = localStorage.getItem("user");
+  const auth = localStorage.getItem("token");
   const logout = () => {
     localStorage.clear();
     navigate("/signup");

@@ -11,5 +11,5 @@ app.use("/user", user.route);
 app.use("/product", product.route);
 
 app.listen(5000, () => {
-  console.log(`Server started at 4000`);
+  console.log(`Server started at 5000`);
 });

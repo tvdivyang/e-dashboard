@@ -26,7 +26,6 @@ function AddProducts() {
         .then(function (result) {
           if (result.status === 200) {
             navigation("/");
-            localStorage.setItem("user", JSON.stringify(result.data));
           }
         });
     } catch (error) {

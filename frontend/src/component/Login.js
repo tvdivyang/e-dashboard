@@ -8,7 +8,7 @@ function Login() {
     password: "",
   });
   useEffect(() => {
-    const auth = localStorage.getItem("user");
+    const auth = localStorage.getItem("token");
     if (auth) {
       navigate("/");
     }
@@ -22,19 +22,21 @@ function Login() {
       await axios
         .post("http://localhost:5000/user/login", inpval)
         .then(function (result) {
-          console.log("🚀 ~ file: Login.js:19 ~ result:", result);
           if (result.data === "No User Found") {
             alert("please enter vaild data");
           } else {
             navigate("/");
-            localStorage.setItem("user", JSON.stringify(result.data));
+            localStorage.setItem("token", JSON.stringify(result.data.auth));
+            localStorage.setItem(
+              "user_id",
+              JSON.stringify(result.data.user._id)
+            );
           }
         });
     } catch (error) {
       console.log("error", error);
     }
   };
-  console.log("🚀 ~ file: Login.js:9 ~ Login ~ inpval:", inpval);
   return (
     <div>
       <form className="container align-items-center d-flex flex-column">

@@ -1,7 +1,8 @@
 const User = require("../schema/userSchema");
+const jwt = require("jsonwebtoken");
+jwtkey = "e-comm";
 
 const register = async (req, res) => {
-  console.log("🚀 ~ file: userController.js:7 ~ register ~ req:", req.body);
   try {
     const user = new User({
       name: req.body.name,
@@ -9,9 +10,12 @@ const register = async (req, res) => {
       password: req.body.password,
     });
     let result = await user.save();
-    res.send(result);
-    // res.send("result)");
-    // res.status(200).json({ result });
+    jwt.sign({ result }, jwtkey, { expiresIn: "2h" }, (err, token) => {
+      if (err) {
+        res.send("token");
+      }
+      res.send({ result, auth: token });
+    });
   } catch (error) {
     res.json({ message: error.message });
   }
@@ -19,9 +23,14 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   if (req.body.password && req.body.email) {
-    let user = await userSchema.findOne(req.body).select("-password");
+    let user = await User.findOne(req.body).select("-password");
     if (user) {
-      res.send(user);
+      jwt.sign({ user }, jwtkey, { expiresIn: "24h" }, (err, token) => {
+        if (err) {
+          res.send("token");
+        }
+        res.send({ user, auth: token });
+      });
     } else {
       res.send("No User Found");
     }

@@ -4,7 +4,7 @@ import axios from "axios";
 function SignUp() {
   const navigate = useNavigate();
   useEffect(() => {
-    const auth = localStorage.getItem("user");
+    const auth = localStorage.getItem("token");
     if (auth) {
       navigate("/");
     }
@@ -25,7 +25,11 @@ function SignUp() {
         .then(function (result) {
           if (result.status === 200) {
             navigate("/");
-            localStorage.setItem("user", JSON.stringify(result.data));
+            localStorage.setItem("token", JSON.stringify(result.data.auth));
+            localStorage.setItem(
+              "user_id",
+              JSON.stringify(result.data.result._id)
+            );
           }
         });
     } catch (error) {
